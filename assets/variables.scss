@@ -1,0 +1,20 @@
+$tabletBreakPoint: 1080px;
+$mobileBreakPoint: 769px;
+
+$darkMain: #121212;
+$darkSub: #272727;
+$darkBorder: #1e1e1e;
+$fontColorMain: #ffffff;
+$fontColorSub: rgba(255, 255, 255, 0.7);
+
+@mixin media($type) {
+    @if ($type == mobile) {
+        @media (max-width: $mobileBreakPoint) {@content;}
+    }
+    @else if ($type == tablet) {
+        @media (min-width: $mobileBreakPoint) and (max-width: $tabletBreakPoint) {@content;}
+    }
+    @else if ($type == desktop) {
+        @media (min-width: $tabletBreakPoint) {@content;}
+    }
+}

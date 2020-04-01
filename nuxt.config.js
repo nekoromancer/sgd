@@ -4,7 +4,6 @@ export default {
     mode: 'spa',
     resolve: {
         extensions: ['.js', '.json', '.vue', '.ts'],
-        root: path.resolve(__dirname),
         alias: {
             '@': path.resolve(__dirname),
             '~': path.resolve(__dirname),
@@ -54,6 +53,7 @@ export default {
         // Doc: https://github.com/nuxt-community/dotenv-module
         '@nuxtjs/dotenv',
         '@nuxtjs/style-resources',
+        'vue-sweetalert2/nuxt',
         ['nuxt-fontawesome', {
             imports: [
                 {

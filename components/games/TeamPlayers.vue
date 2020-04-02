@@ -29,6 +29,7 @@
                 class="player__entry__name"
                 @remove="removeEntry(entry.id)"
                 @input="modifyEntry($event, entry.id)"
+                @enter="addEntry"
             />
         </div>
     </div>
@@ -52,11 +53,15 @@
                 return this.$store.getters['players/getTeamMate'](this.team.id);
             },
             entryAddDisabled () {
-                return this.$store.state.players.players.length >= 12;
+                return this.$store.state.players.players.length >= 8;
             },
         },
         methods: {
             addEntry () {
+                if (this.entryAddDisabled) {
+                    return false;
+                }
+
                 this.$store.commit('players/addPlayer', {
                     id: new Date().getTime(),
                     name: '',

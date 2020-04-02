@@ -1,12 +1,16 @@
 <template>
     <div class="name-input">
         <input
+            ref="playerNameInput"
             v-model="name"
             type="text"
             aria-label="참가자 이름"
-            placeholder="이름 입력"
+            placeholder="이름(6자)"
+            maxlength="6"
             class="name-input__input"
             @change="$emit('input', name)"
+            @keypress.enter="$emit('enter')"
+            @blur="onBlur"
         >
         <button
             class="name-input__remove"
@@ -29,6 +33,16 @@
             return {
                 name: this.value,
             };
+        },
+        mounted () {
+            this.$refs.playerNameInput.focus();
+        },
+        methods: {
+            onBlur () {
+                if (this.name.trim().length === 0) {
+                    this.$emit('remove');
+                }
+            },
         },
     };
 </script>

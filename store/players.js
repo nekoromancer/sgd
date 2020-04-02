@@ -25,16 +25,18 @@ export const mutations = {
     modifyTeam (state, { id, name }) {
         _.find(state.teams, { id }).name = name;
     },
-    clearTeams (state) {
-        state.teams = [];
-    },
     addPlayer (state, player) {
+        player.order = state.players.length + 1;
         state.players.push(player);
     },
     removePlayer (state, id) {
         const index = _.findIndex(state.players, { id });
 
         state.players.splice(index, 1);
+
+        _.each(state.players, (player, index) => {
+            player.order = index + 1;
+        });
     },
     modifyPlayer (state, { id, name }) {
         const index = _.findIndex(state.players, { id });
@@ -43,6 +45,22 @@ export const mutations = {
     },
     modifyPlayerTeam (state, { index, team }) {
         state.players[index].team = team;
+    },
+    playerOrderPrev (state, id) {
+        const players = _.orderBy(state.players, ['order'], ['asc']);
+        const index = _.findIndex(players, { id });
+
+        if (players[index].order !== 1) {
+            [players[index].order, players[index - 1].order] = [players[index - 1].order, players[index].order];
+        }
+    },
+    playerOrderNext (state, id) {
+        const players = _.orderBy(state.players, ['order'], ['asc']);
+        const index = _.findIndex(players, { id });
+
+        if (players[index].order !== players.length) {
+            [players[index].order, players[index + 1].order] = [players[index + 1].order, players[index].order];
+        }
     },
 };
 
@@ -54,6 +72,9 @@ export const getters = {
         return _.filter(state.players, player => {
             return player.team.id === id;
         });
+    },
+    getSortedPlayers (state) {
+        return _.orderBy(state.players, ['order'], ['asc']);
     },
     hasTeam2MorePlayers (state) {
         let validate = true;

@@ -9,13 +9,16 @@
             </p>
             <p>
                 <input
+                    ref="teamName"
                     v-model="teamName"
                     class="team__name"
                     type="text"
                     aria-label="붕당명"
-                    placeholder="붕당 이름(최대 8자)"
-                    maxlength="8"
+                    placeholder="붕당 이름(최대 6자)"
+                    maxlength="6"
                     tabindex="1"
+                    @keypress.enter="$emit('enter')"
+                    @blur="onBlur"
                 >
             </p>
             <button
@@ -52,6 +55,16 @@
                         name: value,
                     });
                 },
+            },
+        },
+        mounted () {
+            this.$refs.teamName.focus();
+        },
+        methods: {
+            onBlur () {
+                if (this.teamName.trim().length === 0) {
+                    this.$emit('remove');
+                }
             },
         },
     };

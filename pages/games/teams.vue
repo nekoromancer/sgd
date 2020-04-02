@@ -12,6 +12,7 @@
                 :team-id="team.id"
                 :color="team.color"
                 class="teams__team-edit__team"
+                @enter="addTeam"
                 @remove="removeTeam(team.id)"
             />
             <button
@@ -57,6 +58,10 @@
         },
         methods: {
             addTeam () {
+                if (this.teams.length >= 4) {
+                    return false;
+                }
+
                 this.$store.commit('players/addTeam', {
                     id: new Date().getTime(),
                     name: '',

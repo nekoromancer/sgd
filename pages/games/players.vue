@@ -2,7 +2,7 @@
     <div class="container players">
         <title-text
             main-text="참가자를 등록합니다"
-            sub-text="(붕당별 각 2명 이상 / 최대 12명)"
+            sub-text="(붕당별 각 2명 이상 / 최대 8명)"
             icon="users"
         />
         <div class="players__player-edit">
@@ -90,6 +90,10 @@
 
                     return false;
                 }
+
+                this.$router.push({
+                    path: '/games/orders',
+                });
             },
         },
     };

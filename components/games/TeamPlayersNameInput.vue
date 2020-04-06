@@ -46,7 +46,7 @@
         },
     };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .name-input {
         width: 100%;
         background: #fff;

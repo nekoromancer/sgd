@@ -65,7 +65,7 @@
         },
     };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .order {
         display: inline-block;
         width: 125px;

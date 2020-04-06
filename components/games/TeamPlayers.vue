@@ -80,7 +80,7 @@
         },
     };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .player {
         width: 200px;
         padding: 0.5em;

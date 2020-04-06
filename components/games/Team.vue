@@ -69,7 +69,7 @@
         },
     };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .team {
         position: relative;
         width: 180px;

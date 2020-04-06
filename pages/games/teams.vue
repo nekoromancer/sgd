@@ -114,7 +114,7 @@
         },
     };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .teams__team-edit {
         margin-bottom: 1em;
         text-align: center;

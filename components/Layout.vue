@@ -18,7 +18,7 @@
         },
     };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .app {
         display: flex;
         flex: 1 1 auto;

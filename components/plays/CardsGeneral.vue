@@ -1,30 +1,50 @@
 <template>
     <section class="card box-shadows">
         <p class="card__number box-shadows">
-            &lt;{{ card.numberType }}. {{ card.number }}&gt;
+            &lt;{{ getCard.numberType }}. {{ getCard.number }}&gt;
         </p>
         <p class="card__rank">
-            -{{ card.rank }}-
+            <template
+                v-if="getCard.rank"
+            >
+                -{{ getCard.rank }}-
+            </template>
+            <template
+                v-else
+            >
+                -품계없음-
+            </template>
         </p>
         <h1
             class="card__title"
-            v-html="card.title.replace('(', '<br />(')"
+            v-html="getCard.title.replace('(', '<br />(')"
         />
         <div class="card__post">
-            <p
-                v-for="post in card.postList"
-                :key="post"
-                class="card__post__item"
+            <template
+                v-if="getCard.postList.length > 0"
             >
-                {{ post }}
-            </p>
+                <p
+                    v-for="post in getCard.postList"
+                    :key="post"
+                    class="card__post__item"
+                >
+                    {{ post }}
+                </p>
+            </template>
+            <template
+                v-else
+            >
+                <p class="card__post__item">
+                    -
+                </p>
+            </template>
         </div>
         <p
             class="card__special box-shadows"
-            :class="{ 'card__special--none': !card.special }"
+            :class="{ 'card__special--none': !getCard.special }"
         >
-            <template v-if="card.special">
-                {{ card.special }}
+            <template v-if="getCard.special">
+                {{ getCard.special }}
             </template>
             <template v-else>
                 &lt;특수 기능 없음&gt;
@@ -34,30 +54,35 @@
 </template>
 <script>
     export default {
-        name: 'Card',
+        name: 'CardGeneral',
         props: {
-            info: {
+            cardInfo: {
                 type: Object,
                 required: true,
             },
         },
-        data () {
-            const card = this.info;
+        computed: {
+            getCard () {
+                const card = this.cardInfo;
 
-            card.postList = card.post.split(', ');
+                if (card.post) {
+                    card.postList = card.post.split(', ');
+                } else {
+                    card.postList = [];
+                }
 
-            return {
-                card,
-            };
+                return card;
+            },
         },
     };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .card {
+        display: inline-block;
         width: 180px;
         height: 290px;
         padding: 0.5em;
-        background: $darkSub;
+        background: $darkMain;
         border: 1px solid $darkBorder;
         border-radius: 5px;
     }

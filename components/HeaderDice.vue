@@ -92,7 +92,7 @@
         },
     };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .dice {
         width: 200px;
         padding: 1em;

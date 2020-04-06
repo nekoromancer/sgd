@@ -30,7 +30,7 @@
         },
     };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .title-text {
         margin-bottom: 2em;
     }

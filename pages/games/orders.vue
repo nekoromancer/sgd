@@ -23,6 +23,7 @@
             </button>
             <button
                 class="btn-main"
+                @click="$router.push('/plays')"
             >
                 시작
             </button>
@@ -44,6 +45,13 @@
                 return this.$store.getters['players/getSortedPlayers'];
             },
         },
+        mounted () {
+            if (this.players.length === 0) {
+                this.$router.push({
+                    path: '/games/players',
+                });
+            }
+        },
         methods: {
             onPrev (event) {
                 this.$store.commit('players/playerOrderPrev', event.id);
@@ -54,7 +62,7 @@
         },
     };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .orders__edit {
         position: relative;
         margin-bottom: 16px;

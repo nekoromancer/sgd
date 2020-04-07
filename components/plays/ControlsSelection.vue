@@ -1,7 +1,7 @@
 <template>
     <div class="selection">
         <cards
-            :card-id="player.card"
+            :player="player"
         />
     </div>
 </template>
@@ -22,6 +22,16 @@
             ...mapGetters('games', {
                 player: 'getCurrentPlayer',
             }),
+        },
+        watch: {
+            player: {
+                immediate: true,
+                handler (player) {
+                    if (player.isOver) {
+                        this.$store.commit('games/setNextTurn', true);
+                    }
+                },
+            },
         },
     };
 </script>

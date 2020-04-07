@@ -19,7 +19,8 @@
 <script>
     import { mapGetters } from 'vuex';
     import Cards from '~/static/cards.json';
-    import Castigate from '~/static/castigate.json';
+    import Castigates from '~/static/castigates.json';
+    import Endings from '~/static/endings.json';
     import Player from '~/components/plays/Player';
     import Logs from '~/components/plays/Logs';
     import Controls from '~/components/plays/Controls';
@@ -34,7 +35,8 @@
         data () {
             return {
                 generalCards: Cards,
-                castigateCard: Castigate,
+                castigateCards: Castigates,
+                endingCards: Endings,
             };
         },
         computed: {
@@ -55,7 +57,8 @@
             this.$store.commit('games/initGames', this.players);
             this.$store.commit('games/setCardData', {
                 general: this.generalCards,
-                castigate: this.castigateCard,
+                castigate: this.castigateCards,
+                ending: this.endingCards,
             });
         },
     };

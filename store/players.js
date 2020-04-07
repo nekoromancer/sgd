@@ -27,6 +27,11 @@ export const mutations = {
     },
     addPlayer (state, player) {
         player.order = state.players.length + 1;
+        player.card = 1;
+        player.status = 0;
+        player.hold = 0;
+        player.isOver = false;
+
         state.players.push(player);
     },
     removePlayer (state, id) {

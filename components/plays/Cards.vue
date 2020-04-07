@@ -1,23 +1,31 @@
 <template>
     <div class="cards">
         <cards-general
+            v-if="getUserCard.id > 0"
+            :card-info="getUserCard"
+            class="cards__current"
+        />
+        <cards-castigate
+            v-else
             :card-info="getUserCard"
             class="cards__current"
         />
         <div class="cards__selections selects">
             <label
                 v-for="(item, i) in getSelectList"
-                :key="item"
+                :key="`${item}-${i}`"
                 class="selects__select"
                 :class="[`selects__select--${i + 1}`, {
-                    'selects__select--selected': item === cardSelect
+                    'selects__select--selected': `${item}_${i}` === cardSelect,
+                    'selects__select--disabled': isPlayerHold,
                 }]"
             >
                 <input
                     v-model="cardSelect"
                     type="radio"
                     name="cardSelection"
-                    :value="item"
+                    :value="`${item}_${i}`"
+                    :disabled="isPlayerHold"
                     class="selects__select__radio"
                 >
             </label>
@@ -32,31 +40,42 @@
                 :disabled="cardSelect === null"
                 @click="submitCard"
             >
-                결정
+                {{ isPlayerHold ? '대기' : '결정' }}
             </button>
         </div>
         <div
             v-if="cardSelect === null"
             class="cards__next cards__next--empty box-shadows"
         />
-        <cards-general
+        <template
             v-else
-            :card-info="getSelectedCard"
-            class="cards__next"
-        />
+        >
+            <cards-general
+                v-if="getSelectedCard.id > 0"
+                :card-info="getSelectedCard"
+                class="cards__next"
+            />
+            <cards-castigate
+                v-else
+                :card-info="getSelectedCard"
+                class="cards__next"
+            />
+        </template>
     </div>
 </template>
 <script>
     import CardsGeneral from '~/components/plays/CardsGeneral';
+    import CardsCastigate from '~/components/plays/CardsCastigate';
 
     export default {
         name: 'Cards',
         components: {
             CardsGeneral,
+            CardsCastigate,
         },
         props: {
-            cardId: {
-                type: Number,
+            player: {
+                type: Object,
                 required: true,
             },
         },
@@ -66,11 +85,28 @@
             };
         },
         computed: {
+            isPlayerHold () {
+                if (this.player.hold > 0) {
+                    this.onPlayerHoldAction();
+
+                    return true;
+                } else {
+                    return false;
+                }
+            },
             getUserCard () {
-                return this.$store.getters['games/getCard'](this.cardId);
+                if (this.player.status === 0) {
+                    return this.$store.getters['games/getCard'](this.player.card);
+                } else {
+                    return this.$store.getters['games/getCard'](this.player.status);
+                }
             },
             getSelectedCard () {
-                return this.$store.getters['games/getCard'](this.cardSelect);
+                if (this.getSelectedCardId() === 0) {
+                    return this.$store.getters['games/getCard'](this.player.card);
+                } else {
+                    return this.$store.getters['games/getCard'](this.getSelectedCardId());
+                }
             },
             getSelectList () {
                 const card = this.getUserCard;
@@ -79,9 +115,15 @@
             },
         },
         methods: {
+            getSelectedCardId () {
+                return Number(this.cardSelect.split('_').shift());
+            },
             submitCard () {
-                this.$store.commit('games/setCardSelect', this.cardSelect);
+                this.$store.dispatch('games/cardSelects', this.getSelectedCardId());
                 this.cardSelect = null;
+            },
+            onPlayerHoldAction () {
+                this.cardSelect = -(this.player.hold + 10);
             },
         },
     };
@@ -129,6 +171,11 @@
             background: #fff;
             color: $darkMain;
         }
+    }
+
+    .selects__select--disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
     }
 
     .selects__select--1 {

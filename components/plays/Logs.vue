@@ -16,12 +16,32 @@
                 <span class="logs__item__age">
                     {{ 20 + turn }}
                 </span>
-                <p>
-                    &lt;{{ log.numberType }}. {{ log.number }}&gt;
+                <p
+                    v-if="log.numberType === '종료'"
+                >
+                    &lt;{{ log.numberType }}&gt;
                 </p>
                 <p
-                    v-html="log.title.replace('(', '<br />(')"
+                    v-else-if="log.numberType === 'empty'"
+                >
+                    -
+                </p>
+
+                <p
+                    v-else
+                >
+                    &lt;{{ log.numberType }}. {{ log.number }}&gt;
+                </p>
+
+                <p
+                    v-if="log.numberType !== 'empty'"
+                    v-html="log.title.replace('(', '<br>(')"
                 />
+                <p
+                    v-else
+                >
+                    <br><br>
+                </p>
             </div>
         </div>
     </div>
@@ -50,9 +70,13 @@
 </script>
 <style lang="scss">
     .logs {
-        max-height: calc(100% - 500px);
+        max-height: calc(100% - 572px);
         text-align: center;
         overflow: scroll;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 160px;
     }
 
     .logs__line {
@@ -85,9 +109,11 @@
         position: absolute;
         left: 0;
         top : 0;
+        width: 20px;
         height: 100%;
         background: rgba(255, 255, 255, 0.25);
         padding: 0 3px;
+        justify-content: center;
         align-items: center;
         font-size: 12px;
     }

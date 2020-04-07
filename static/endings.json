@@ -1,0 +1,16 @@
+[
+    {
+        "id": -21,
+        "numberType": "종료",
+        "number": 1,
+        "title": "사약(賜藥)",
+        "isGameSet": false
+    },
+    {
+        "id": -22,
+        "numberType": "종료",
+        "number": 2,
+        "title": "은퇴(隱退)",
+        "isGameSet": true
+    }
+]

@@ -1,5 +1,10 @@
 <template>
-    <div class="player box-shadows">
+    <div
+        class="player box-shadows"
+        :class="{
+            'player--over': player.isOver,
+        }"
+    >
         <p class="player__team">
             <span
                 :style="{ color: player.team.color }"
@@ -40,6 +45,14 @@
 
         &:last-child {
             margin-right: 0;
+        }
+    }
+
+    .player--over {
+        background: rgba(red, 0.25);
+
+        .player__name {
+            text-decoration: line-through;
         }
     }
 

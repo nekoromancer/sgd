@@ -1,0 +1,57 @@
+[
+    {
+        "id": -1,
+        "numberType": "징계",
+        "number": 1,
+        "title": "추고(推考)",
+        "do": -2,
+        "ge": -2,
+        "gl": 0,
+        "yt": 0,
+        "mo": 0
+    },
+    {
+        "id": -2,
+        "numberType": "징계",
+        "number": 2,
+        "title": "파직(罷職)",
+        "do": -3,
+        "ge": -1,
+        "gl": -1,
+        "yt": 0,
+        "mo": 0
+    },
+    {
+        "id": -3,
+        "numberType": "징계",
+        "number": 3,
+        "title": "금고(禁錮)",
+        "do": -4,
+        "ge": -2,
+        "gl": -2,
+        "yt": -1,
+        "mo": -1
+    },
+    {
+        "id": -4,
+        "numberType": "징계",
+        "number": 4,
+        "title": "정배(定配)",
+        "do": -21,
+        "ge": -3,
+        "gl": -3,
+        "yt": -2,
+        "mo": -2
+    },
+    {
+        "id": -5,
+        "numberType": "징계",
+        "number": 5,
+        "title": "금부(禁府)",
+        "do": -4,
+        "ge": -4,
+        "gl": 0,
+        "yt": 0,
+        "mo": 0
+    }
+]
